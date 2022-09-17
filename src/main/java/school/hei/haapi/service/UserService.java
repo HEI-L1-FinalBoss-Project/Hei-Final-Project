@@ -15,7 +15,6 @@ import school.hei.haapi.model.PageFromOne;
 import school.hei.haapi.model.User;
 import school.hei.haapi.model.validator.UserValidator;
 import school.hei.haapi.repository.UserRepository;
-
 import static java.util.stream.Collectors.toUnmodifiableList;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 
@@ -65,6 +64,13 @@ public class UserService {
         Sort.by(ASC, "ref"));
     return userRepository
         .findByRoleAndRefContainingIgnoreCaseAndFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCase(
-           role, ref, firstName, lastName, pageable);
+            role, ref, firstName, lastName, pageable);
+  }
+
+  public List<User> getByGroup(PageFromOne page, BoundedPageSize pageSize, User.Role role,
+                               String groupId) {
+    Pageable pageable =
+        PageRequest.of(page.getValue() - 1, pageSize.getValue(), Sort.by(ASC, "ref"));
+    return userRepository.findByRoleAndGroup_Id(role, groupId, pageable);
   }
 }

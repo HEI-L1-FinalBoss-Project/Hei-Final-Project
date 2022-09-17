@@ -21,6 +21,8 @@ create table if not exists "user"
     last_name         varchar                  not null,
     email             varchar                  not null
         constraint user_email_unique unique,
+    group_id               varchar
+        constraint fk_user_group    references "group"(id),
     ref               varchar                  not null
         constraint user_ref_unique unique,
     status            user_status              not null,
