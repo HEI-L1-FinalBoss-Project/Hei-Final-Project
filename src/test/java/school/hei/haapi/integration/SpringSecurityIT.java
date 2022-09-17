@@ -45,7 +45,7 @@ class SpringSecurityIT {
   @Test
   void authenticated_user_has_known_email() {
     String email = cognitoComponent.getEmailByIdToken(bearer);
-    assertEquals("test+ryan@hei.school", email);
+    assertEquals("test+manager1@hei.school", email);
   }
 
   @Test
